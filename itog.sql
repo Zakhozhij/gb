@@ -1,12 +1,22 @@
 #Выведите только четные числа от 1 до 10. Пример: 2,4,6,8,10
 
+CREATE DEFINER=`root`@`localhost` FUNCTION `even`(
+	`start_value` INT,
+	`end_value` INT
+)
+RETURNS text CHARSET utf8
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT ''
 BEGIN
 	DECLARE x INT DEFAULT start_value;
 	DECLARE y INT DEFAULT end_value;
 	DECLARE result TEXT DEFAULT '';
 	WHILE X<=y DO
 		IF (MOD(x, 2)=0) THEN
-		    SET result = CONCAT(result,' ',X);
+			SET result = CONCAT(result,' ',X);
 		END IF;
 		SET X = X+1;
 	END WHILE;
@@ -16,6 +26,15 @@ END
 SELECT even(1,10)
 
 #Создайте функцию, которая принимает кол-во сек и формат их в кол-во дней часов. Пример: 123456 ->'1 days 10 hours 17 minutes 36 seconds '
+CREATE DEFINER=`root`@`localhost` FUNCTION `transformDate`(
+	`seconds` INT
+)
+RETURNS text CHARSET utf8
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT ''
 BEGIN
 	DECLARE start_value INT DEFAULT seconds;
 	DECLARE days INT DEFAULT 0;
